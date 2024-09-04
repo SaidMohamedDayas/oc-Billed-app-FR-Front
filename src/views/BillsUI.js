@@ -20,10 +20,14 @@ const row = (bill) => {
 };
 
 const rows = (data) => {
-  // Bills sorted from oldest to most recent
-  data.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
+  if (data) {
+    // Bills sorted from oldest to most recent
+    data.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
 
-  return data && data.length ? data.map((bill) => row(bill)).join("") : "";
+    return data && data.length ? data.map((bill) => row(bill)).join("") : "";
+  } else {
+    return "";
+  }
 };
 
 export default ({ data: bills, loading, error }) => {
