@@ -20,9 +20,14 @@ export default class NewBill {
   }
   handleChangeFile = (e) => {
     e.preventDefault();
-    const file = this.document.querySelector(`input[data-testid="file"]`)
-      .files[0];
+    const fileInput = this.document.querySelector(`input[data-testid="file"]`);
+    const file = fileInput.files[0];
     const filePath = e.target.value.split(/\\/g);
+
+    if (!file) {
+      alert("Aucun fichier sélectionné");
+      return;
+    }
 
     const allowedExtensions = ["image/png", "image/jpg", "image/jpeg"];
 
@@ -49,7 +54,7 @@ export default class NewBill {
         })
         .catch((error) => console.error(error));
     } else {
-      file.value = null;
+      fileInput.value = null;
       this.isFileValid = false;
       alert("Seuls les fichiers jpg, jpeg et png sont autorisés");
     }
