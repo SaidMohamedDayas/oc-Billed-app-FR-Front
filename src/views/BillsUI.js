@@ -19,10 +19,29 @@ const row = (bill) => {
     `;
 };
 
+const parseDate = (dateStr) => {
+  const [day, month, year] = dateStr.split(" ");
+  const months = {
+    "Jan.": 0,
+    "Fév.": 1,
+    "Mar.": 2,
+    "Avr.": 3,
+    "Mai": 4,
+    "Juin": 5,
+    "Jui.": 6,
+    "Aoû.": 7,
+    "Sep.": 8,
+    "Oct.": 9,
+    "Nov.": 10,
+    "Déc.": 11,
+  };
+  return new Date(year, months[month], day);
+};
+
 const rows = (data) => {
   if (data) {
     // Bills sorted from oldest to most recent
-    data.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
+    data.sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
     return data && data.length ? data.map((bill) => row(bill)).join("") : "";
   } else {
